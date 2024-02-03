@@ -1,7 +1,6 @@
 import {Component} from 'react'
 import Loader from 'react-loader-spinner'
 import Cookies from 'js-cookie'
-
 import FiltersGroup from '../FiltersGroup'
 import ProductCard from '../ProductCard'
 import ProductsHeader from '../ProductsHeader'
@@ -74,11 +73,10 @@ const apiStatusConstants = {
 class AllProductsSection extends Component {
   state = {
     productsList: [],
-    // isLoading:false,
     activeOptionId: sortbyOptions[0].optionId,
-    categoryOptionId:'',
+    categoryOptionId: '',
     search: '',
-    ratingOptionId:'',
+    ratingOptionId: '',
     apiStatus: apiStatusConstants.initial,
   }
 
@@ -95,7 +93,12 @@ class AllProductsSection extends Component {
 
     // TODO: Update the code to get products with filters applied
 
-    const {activeOptionId, categoryOptionId, search,ratingOptionId} = this.state
+    const {
+      activeOptionId,
+      categoryOptionId,
+      search,
+      ratingOptionId,
+    } = this.state
     const apiUrl = `https://apis.ccbp.in/products?sort_by=${activeOptionId}&category=${categoryOptionId}&title_search=${search}&rating=${ratingOptionId}`
     const options = {
       headers: {
@@ -118,7 +121,8 @@ class AllProductsSection extends Component {
         productsList: updatedData,
         apiStatus: apiStatusConstants.success,
       })
-    } else if (response.status === 401) {
+    }
+    if (response.status === 401) {
       this.setState({
         apiStatus: apiStatusConstants.failure,
       })
@@ -137,34 +141,35 @@ class AllProductsSection extends Component {
     this.setState({search: searched}, this.getProducts)
   }
 
-  onChangerating=(ratingId)=>{
-      this.setState({ratingOptionId:ratingId},this.getProducts)
+  onChangerating = ratingId => {
+    this.setState({ratingOptionId: ratingId}, this.getProducts)
   }
-  
-  onChangefilter=()=>{
-      this.setState({search:'',categoryOptionId:'',ratingOptionId:''},this.getProducts)
+
+  onChangefilter = () => {
+    this.setState(
+      {search: '', categoryOptionId: '', ratingOptionId: ''},
+      this.getProducts,
+    )
   }
 
   renderProductsList = () => {
     const {productsList, activeOptionId} = this.state
 
     // TODO: Add No Products View
-    if (productsList===''){
-        return(
-            <div className="failureview">
-                <img
-                src="https://assets.ccbp.in/frontend/react-js/nxt-trendz/nxt-trendz-no-products-view.png "
-                alt="no products"
-                className="productfailureimage"
-                />
+    if (productsList === '') {
+      return (
+        <div className="failureview">
+          <img
+            src="https://assets.ccbp.in/frontend/react-js/nxt-trendz/nxt-trendz-no-products-view.png "
+            alt="no products"
+            className="productfailureimage"
+          />
 
-                <p className="oops">No products found</p>
-                <p className="oopstext">
-                We could not found any products
-                </p>
-                <p className='oopstext'>Please try again</p>
-            </div>
-        )
+          <p className="oops">No products found</p>
+          <p className="oopstext">We could not found any products</p>
+          <p className="oopstext">Please try again</p>
+        </div>
+      )
     }
     return (
       <div className="all-products-container">
@@ -182,36 +187,31 @@ class AllProductsSection extends Component {
     )
   }
 
-
   renderLoader = () => (
     <div className="products-loader-container">
       <Loader type="ThreeDots" color="#0b69ff" height="50" width="50" />
     </div>
   )
 
-  
-  renderFailureview = () =>(
-      <div className="failureview">
-        <img
-          src="https://assets.ccbp.in/frontend/react-js/nxt-trendz/nxt-trendz-products-error-view.png"
-          alt="productsfailure"
-          className="productfailureimage"
-        />
+  renderFailureview = () => (
+    <div className="failureview">
+      <img
+        src="https://assets.ccbp.in/frontend/react-js/nxt-trendz/nxt-trendz-products-error-view.png"
+        alt="productsfailure"
+        className="productfailureimage"
+      />
 
-        <p className="oops">Opps Something Went Wrong</p>
-        <p className="oopstext">
-          We are having some trouble [rocessing your request.
-        </p>
-        <p className='oopstext'>Please try again</p>
-      </div>
-    )
-  }
+      <p className="oops">Opps Something Went Wrong</p>
+      <p className="oopstext">
+        We are having some trouble [rocessing your request.
+      </p>
+      <p className="oopstext">Please try again</p>
+    </div>
+  )
 
   // TODO: Add failure view
 
-
-  render(){
-
+  render() {
     const {apiStatus} = this.state
     switch (apiStatus) {
       case apiStatusConstants.success:
@@ -224,7 +224,6 @@ class AllProductsSection extends Component {
               onChangeproductsList={this.onChangeproductsList}
               onChangerating={this.onChangerating}
               onChangefilter={this.onChangefilter}
-    
             />
             {this.renderProductsList()}
           </div>

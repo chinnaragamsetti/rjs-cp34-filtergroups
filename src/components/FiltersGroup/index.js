@@ -3,7 +3,14 @@ import {BsSearch} from 'react-icons/bs'
 import './index.css'
 
 const FiltersGroup = props => {
-  const {categoryOptions,ratingsList, categoryChange, onChangeproductsList,onChangerating,onChangefilter} = props
+  const {
+    categoryOptions,
+    ratingsList,
+    categoryChange,
+    onChangeproductsList,
+    onChangerating,
+    onChangefilter,
+  } = props
 
   const onChangeSearch = event => {
     onChangeproductsList(event.target.value)
@@ -12,13 +19,13 @@ const FiltersGroup = props => {
     categoryChange(categoryId)
   }
 
-  const onClickrating=(ratingId)=>{
-      onChangerating(ratingId)
+  const onClickrating = ratingId => {
+    onChangerating(ratingId)
   }
 
-  const onClickFilter=()=>{
-      onChangefilter()
-  } 
+  const onClickFilter = () => {
+    onChangefilter()
+  }
   return (
     <div className="filters-group-container">
       <div className="searchcontainer">
@@ -45,17 +52,23 @@ const FiltersGroup = props => {
         ))}
       </ul>
       <h1 className="category">Rating</h1>
-      <ul className='ratinglist'>
-          {ratingsList.map(each=>(
-                <button type="button" className="button" onClick={onClickrating(each.ratingId)}>
-                    <li className="ratingeachlist" key={each.ratingId}>
-                        <img src={each.imageUrl} alt='rating' className='ratingimage'/>
-                        <p className='ratingtext'>&up</p>
-                    </li>
-            </button>
-            )}
+      <ul className="ratinglist">
+        {ratingsList.map(each => (
+          <button
+            type="button"
+            className="button"
+            onClick={onClickrating(each.ratingId)}
+          >
+            <li className="ratingeachlist" key={each.ratingId}>
+              <img src={each.imageUrl} alt="rating" className="ratingimage" />
+              <p className="ratingtext">&up</p>
+            </li>
+          </button>
+        ))}
       </ul>
-      <button className='clearbutton' type='button' onClick={onClickFilter}>Clear Filters</button>
+      <button className="clearbutton" type="button" onClick={onClickFilter}>
+        Clear Filters
+      </button>
     </div>
   )
 }
