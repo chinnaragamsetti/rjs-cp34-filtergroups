@@ -164,7 +164,6 @@ class AllProductsSection extends Component {
             alt="no products"
             className="productfailureimage"
           />
-
           <p className="oops">No products found</p>
           <p className="oopstext">We could not found any products</p>
           <p className="oopstext">Please try again</p>
@@ -212,7 +211,7 @@ class AllProductsSection extends Component {
   // TODO: Add failure view
 
   render() {
-    const {apiStatus} = this.state
+    const {apiStatus, categoryOptionId, ratingOptionId} = this.state
     switch (apiStatus) {
       case apiStatusConstants.success:
         return (
@@ -224,6 +223,8 @@ class AllProductsSection extends Component {
               onChangeproductsList={this.onChangeproductsList}
               onChangerating={this.onChangerating}
               onChangefilter={this.onChangefilter}
+              categoryOptionId={categoryOptionId}
+              ratingOptionId={ratingOptionId}
             />
             {this.renderProductsList()}
           </div>

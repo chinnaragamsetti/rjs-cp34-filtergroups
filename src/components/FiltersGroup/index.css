@@ -58,11 +58,18 @@
   font-size: 20px;
   color: rgb(162, 164, 165);
 }
+.selectedcategoryeachlist {
+  color: #0967d2;
+  font-size: 20px;
+}
 
 .ratinglist {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   list-style-type: none;
+  padding-left: 0px;
 }
 .ratingeachlist {
   display: flex;
@@ -77,9 +84,15 @@
   color: lightgrey;
 }
 
+.selectedratingtext {
+  font-size: 10px;
+  color: #0967d2;
+}
 .clearbutton {
-  border: 1px lightblue;
+  border: 1px solid lightblue;
   color: lightblue;
   font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
   background-color: transparent;
 }

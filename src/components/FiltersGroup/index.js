@@ -10,11 +10,16 @@ const FiltersGroup = props => {
     onChangeproductsList,
     onChangerating,
     onChangefilter,
+    categoryOptionId,
+    ratingOptionId,
   } = props
+
+  //  const activeId = {Activestatus: 0}
 
   const onChangeSearch = event => {
     onChangeproductsList(event.target.value)
   }
+
   const onClickcategory = categoryId => {
     categoryChange(categoryId)
   }
@@ -26,6 +31,7 @@ const FiltersGroup = props => {
   const onClickFilter = () => {
     onChangefilter()
   }
+
   return (
     <div className="filters-group-container">
       <div className="searchcontainer">
@@ -43,9 +49,16 @@ const FiltersGroup = props => {
           <button
             type="button"
             className="button"
-            onClick={onClickcategory(each.categoryId)}
+            onClick={() => onClickcategory(each.categoryId)}
           >
-            <li className="categoryeachlist" key={each.categoryId}>
+            <li
+              className={
+                categoryOptionId === each.categoryId
+                  ? 'selectedcategoryeachlist'
+                  : 'categoryeachlist'
+              }
+              key={each.categoryId}
+            >
               {each.name}
             </li>
           </button>
@@ -57,11 +70,23 @@ const FiltersGroup = props => {
           <button
             type="button"
             className="button"
-            onClick={onClickrating(each.ratingId)}
+            onClick={() => onClickrating(each.ratingId)}
           >
             <li className="ratingeachlist" key={each.ratingId}>
-              <img src={each.imageUrl} alt="rating" className="ratingimage" />
-              <p className="ratingtext">&up</p>
+              <img
+                src={each.imageUrl}
+                alt={each.ratingId}
+                className="ratingimage"
+              />
+              <p
+                className={
+                  ratingOptionId === each.ratingId
+                    ? 'selectedratingtext'
+                    : 'ratingtext'
+                }
+              >
+                &up
+              </p>
             </li>
           </button>
         ))}
