@@ -75,7 +75,7 @@ const FiltersGroup = props => {
             <li className="ratingeachlist" key={each.ratingId}>
               <img
                 src={each.imageUrl}
-                alt={each.ratingId}
+                alt={`rating ${each.ratingId}`}
                 className="ratingimage"
               />
               <p

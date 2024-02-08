@@ -196,7 +196,7 @@ class AllProductsSection extends Component {
     <div className="failureview">
       <img
         src="https://assets.ccbp.in/frontend/react-js/nxt-trendz/nxt-trendz-products-error-view.png"
-        alt="productsfailure"
+        alt="products failure"
         className="productfailureimage"
       />
 
