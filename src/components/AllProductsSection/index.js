@@ -155,8 +155,8 @@ class AllProductsSection extends Component {
   renderProductsList = () => {
     const {productsList, activeOptionId} = this.state
 
-    // TODO: Add No Products View
-    if (productsList === '') {
+    console.log(productsList.length)
+    if (productsList.length === 0) {
       return (
         <div className="failureview">
           <img
@@ -164,9 +164,10 @@ class AllProductsSection extends Component {
             alt="no products"
             className="productfailureimage"
           />
-          <p className="oops">No products found</p>
-          <p className="oopstext">We could not found any products</p>
-          <p className="oopstext">Please try again</p>
+          <p className="oops">No Products Found</p>
+          <p className="oopstext">
+            We could not found any products. Try other filters.
+          </p>
         </div>
       )
     }
@@ -202,72 +203,46 @@ class AllProductsSection extends Component {
 
       <p className="oops">Opps Something Went Wrong</p>
       <p className="oopstext">
-        We are having some trouble [rocessing your request.
+        We are having some trouble processing your request. Please try again.
       </p>
-      <p className="oopstext">Please try again</p>
     </div>
   )
 
   // TODO: Add failure view
 
-  render() {
-    const {apiStatus, categoryOptionId, ratingOptionId} = this.state
+  renderAllProducts = () => {
+    const {apiStatus} = this.state
+
     switch (apiStatus) {
       case apiStatusConstants.success:
-        return (
-          <div className="all-products-section">
-            <FiltersGroup
-              categoryOptions={categoryOptions}
-              ratingsList={ratingsList}
-              categoryChange={this.categoryChange}
-              onChangeproductsList={this.onChangeproductsList}
-              onChangerating={this.onChangerating}
-              onChangefilter={this.onChangefilter}
-              categoryOptionId={categoryOptionId}
-              ratingOptionId={ratingOptionId}
-            />
-            {this.renderProductsList()}
-          </div>
-        )
+        return this.renderProductsList()
       case apiStatusConstants.failure:
-        return (
-          <div className="all-products-section">
-            <FiltersGroup
-              categoryOptions={categoryOptions}
-              ratingsList={ratingsList}
-              categoryChange={this.categoryChange}
-              onChangeproductsList={this.onChangeproductsList}
-            />
-            {this.renderFailureview()}
-          </div>
-        )
+        return this.renderFailureview()
       case apiStatusConstants.inProgress:
-        return (
-          <div className="all-products-section">
-            <FiltersGroup
-              categoryOptions={categoryOptions}
-              ratingsList={ratingsList}
-              categoryChange={this.categoryChange}
-              onChangeproductsList={this.onChangeproductsList}
-            />
-            {this.renderLoader()}
-          </div>
-        )
+        return this.renderLoader()
       default:
         return null
     }
   }
-}
 
-export default AllProductsSection
-
-/* <div className="all-products-section">
+  render() {
+    const {categoryOptionId, ratingOptionId} = this.state
+    return (
+      <div className="all-products-section">
         <FiltersGroup
           categoryOptions={categoryOptions}
           ratingsList={ratingsList}
           categoryChange={this.categoryChange}
           onChangeproductsList={this.onChangeproductsList}
+          onChangerating={this.onChangerating}
+          onChangefilter={this.onChangefilter}
+          categoryOptionId={categoryOptionId}
+          ratingOptionId={ratingOptionId}
         />
-        
-        {isLoading ? this.renderLoader() : this.renderProductsList()}
-        */
+        {this.renderAllProducts()}
+      </div>
+    )
+  }
+}
+
+export default AllProductsSection

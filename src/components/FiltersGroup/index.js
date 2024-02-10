@@ -17,7 +17,9 @@ const FiltersGroup = props => {
   //  const activeId = {Activestatus: 0}
 
   const onChangeSearch = event => {
-    onChangeproductsList(event.target.value)
+    if (event.key === 'Enter') {
+      onChangeproductsList(event.target.value)
+    }
   }
 
   const onClickcategory = categoryId => {
@@ -39,7 +41,7 @@ const FiltersGroup = props => {
           type="search"
           className="search"
           placeholder="Search"
-          onChange={onChangeSearch}
+          onKeyDown={onChangeSearch}
         />
         <BsSearch className="searchicon" />
       </div>
@@ -59,7 +61,7 @@ const FiltersGroup = props => {
               }
               key={each.categoryId}
             >
-              {each.name}
+              <p>{each.name}</p>
             </li>
           </button>
         ))}
