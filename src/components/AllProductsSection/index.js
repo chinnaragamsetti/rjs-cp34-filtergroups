@@ -121,8 +121,7 @@ class AllProductsSection extends Component {
         productsList: updatedData,
         apiStatus: apiStatusConstants.success,
       })
-    }
-    if (response.status === 401) {
+    } else {
       this.setState({
         apiStatus: apiStatusConstants.failure,
       })
@@ -154,8 +153,6 @@ class AllProductsSection extends Component {
 
   renderProductsList = () => {
     const {productsList, activeOptionId} = this.state
-
-    console.log(productsList.length)
     if (productsList.length === 0) {
       return (
         <div className="failureview">
